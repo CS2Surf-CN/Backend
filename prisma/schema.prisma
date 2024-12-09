@@ -1,7 +1,7 @@
-// prisma/schema.prisma
-
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  output        = "./generated/"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -9,17 +9,126 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
-  posts Post[]
+model Users {
+  auth      Int     @id
+  name      String? @db.VarChar(32)
+  ip        Int?
+  lastlogin Int     @default(-1)
+  points    Float   @default(0)
+  playtime  Float   @default(0)
+
+  playertimes Playertimes[]
+  chats       Chat[]
+
+  @@index([points])
+  @@index([lastlogin])
+  @@map("users")
 }
 
-model Post {
-  id      Int    @id @default(autoincrement())
-  title   String
-  content String?
-  author  User?  @relation(fields: [authorId], references: [id])
-  authorId Int?
+model Mapzones {
+  id            Int     @id @default(autoincrement())
+  map           String? @db.VarChar(128)
+  type          Int?
+  corner1_x     Float?
+  corner1_y     Float?
+  corner1_z     Float?
+  corner2_x     Float?
+  corner2_y     Float?
+  corner2_z     Float?
+  destination_x Float   @default(0)
+  destination_y Float   @default(0)
+  destination_z Float   @default(0)
+  track         Int     @default(0)
+  flags         Int     @default(0)
+  data          Int     @default(0)
+  hammerid      Int     @default(-1)
+  hookname      String  @default("NONE") @db.VarChar(128)
+  limitspeed    Float   @default(350.0)
+
+  @@map("mapzones")
+}
+
+model Playertimes {
+  id             Int     @id @default(autoincrement())
+  auth           Int     @map("auth")
+  map            String? @db.VarChar(128)
+  time           Float?
+  jumps          Int?
+  style          Int?
+  date           Int?
+  strafes        Int?
+  sync           Float?
+  points         Float   @default(0)
+  track          Int     @default(0)
+  completions    Int?    @default(1) @db.SmallInt
+  exact_time_int Int?    @default(0)
+  prestrafe      Float?  @default(0)
+
+  user Users @relation(fields: [auth], references: [auth], onUpdate: Cascade, onDelete: Cascade)
+
+  @@index([map, style, track, time])
+  @@index([auth, date, points])
+  @@index([time])
+  @@map("playertimes")
+}
+
+model Chat {
+  auth      Int     @id @map("auth")
+  name      Int     @default(0)
+  ccname    String? @db.VarChar(128)
+  message   Int     @default(0)
+  ccmessage String? @db.VarChar(16)
+  ccaccess  Int     @default(0)
+
+  user Users @relation(fields: [auth], references: [auth], onUpdate: Cascade, onDelete: Cascade)
+
+  @@map("chat")
+}
+
+model Maptiers {
+  map           String  @id @db.VarChar(128)
+  tier          Int     @default(0)
+  limitPrespeed Boolean @default(true)
+  maxvelocity   Float   @default(0)
+
+  @@map("maptiers")
+}
+
+model Stagetimes {
+  id          Int     @id @default(autoincrement())
+  auth        Int?
+  map         String? @db.VarChar(128)
+  time        Float?
+  style       Int?
+  stage       Int?
+  postspeed   Float?
+  date        Int?
+  completions Int?
+
+  @@map("stagetimes")
+}
+
+model CPtimes {
+  id        Int     @id @default(autoincrement())
+  auth      Int?
+  map       String? @db.VarChar(128)
+  time      Float?
+  marktime  Float?
+  style     Int?
+  cp        Int?
+  attemps   Int?
+  prespeed  Float?
+  postspeed Float?
+  date      Int?
+
+  @@map("cptimes")
+}
+
+model StylePlaytime {
+  auth     Int
+  style    Int
+  playtime Float
+
+  @@id([auth, style])
+  @@map("styleplaytime")
 }
