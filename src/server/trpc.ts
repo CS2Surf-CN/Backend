@@ -6,6 +6,7 @@ import { db } from '../services/db';
 import superjson from 'superjson';
 import jwt from 'jsonwebtoken';
 import { JWTPayload } from '../services/auth';
+import { APIKeyType } from '../../prisma/generated';
 
 const t = initTRPC
     .context<Context>()
@@ -27,13 +28,22 @@ export const middleware = t.middleware;
 // public
 export const procedure = t.procedure;
 
-// apikey layer
 export const apikeyProcedure = t.procedure.use(async ({ ctx, next }) => {
     const { req } = ctx;
     const token = req.header('authorization')?.split('Bearer ')[1];
     const payload = token ? (jwt.verify(token, process.env.JWT_TOKEN_SECURE!) as JWTPayload) : null;
     if (!payload) throw new TRPCError({ code: 'UNAUTHORIZED' });
-    const session = await db.credential.findUnique({ where: { key: payload.api_key } });
+    const session = await db.credential.findUnique({ where: { type: APIKeyType.Public, key: payload.api_key } });
+    if (!session) throw new TRPCError({ code: 'UNAUTHORIZED' });
+    return next({ ctx: { session, db, paid: false } });
+});
+
+export const zoneProcedure = t.procedure.use(async ({ ctx, next }) => {
+    const { req } = ctx;
+    const token = req.header('authorization')?.split('Bearer ')[1];
+    const payload = token ? (jwt.verify(token, process.env.JWT_TOKEN_SECURE!) as JWTPayload) : null;
+    if (!payload) throw new TRPCError({ code: 'UNAUTHORIZED' });
+    const session = await db.credential.findUnique({ where: { type: APIKeyType.ZoneHelper, key: payload.api_key } });
     if (!session) throw new TRPCError({ code: 'UNAUTHORIZED' });
     return next({ ctx: { session, db, paid: false } });
 });

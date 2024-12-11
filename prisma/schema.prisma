@@ -11,7 +11,8 @@ datasource db {
 
 enum APIKeyType {
   Invalid
-  Valid
+  Public
+  ZoneHelper
 }
 
 model Credential {
@@ -47,18 +48,18 @@ model Mapzones {
   id            Int       @id @default(autoincrement())
   map           String    @db.VarChar(128)
   type          Int
-  corner1_x     Float
-  corner1_y     Float
-  corner1_z     Float
-  corner2_x     Float
-  corner2_y     Float
-  corner2_z     Float
-  destination_x Float     @default(0)
-  destination_y Float     @default(0)
-  destination_z Float     @default(0)
+  mins_x        Float
+  mins_y        Float
+  mins_z        Float
+  maxs_x        Float
+  maxs_y        Float
+  maxs_z        Float
+  des_x Float     @default(0)
+  des_y Float     @default(0)
+  des_z Float     @default(0)
   track         Int       @default(0)
   flags         Int       @default(0)
-  data          Int       @default(0)
+  value         Int       @default(0)
   hammerid      Int       @default(-1)
   hookname      String    @default("NONE") @db.VarChar(128)
   limitspeed    Float     @default(350.0)
