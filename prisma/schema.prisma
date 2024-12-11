@@ -45,26 +45,26 @@ model User {
 }
 
 model Mapzones {
-  id            Int       @id @default(autoincrement())
-  map           String    @db.VarChar(128)
-  type          Int
-  mins_x        Float
-  mins_y        Float
-  mins_z        Float
-  maxs_x        Float
-  maxs_y        Float
-  maxs_z        Float
-  des_x Float     @default(0)
-  des_y Float     @default(0)
-  des_z Float     @default(0)
-  track         Int       @default(0)
-  flags         Int       @default(0)
-  value         Int       @default(0)
-  hammerid      Int       @default(-1)
-  hookname      String    @default("NONE") @db.VarChar(128)
-  limitspeed    Float     @default(350.0)
-  created_at    DateTime? @default(now()) @db.Timestamp(3)
-  updated_at    DateTime? @default(now()) @db.Timestamp(3)
+  id         Int       @id @default(autoincrement())
+  map        String    @db.VarChar(128)
+  type       Int
+  mins_x     Float
+  mins_y     Float
+  mins_z     Float
+  maxs_x     Float
+  maxs_y     Float
+  maxs_z     Float
+  des_x      Float     @default(0)
+  des_y      Float     @default(0)
+  des_z      Float     @default(0)
+  track      Int       @default(0)
+  flags      Int       @default(0)
+  value      Int       @default(0)
+  hammerid   Int       @default(-1)
+  hookname   String    @default("NONE") @db.VarChar(128)
+  limitspeed Float     @default(350.0)
+  created_at DateTime? @default(now()) @db.Timestamp(3)
+  updated_at DateTime? @default(now()) @db.Timestamp(3)
 
   @@map("mapzones")
 }
