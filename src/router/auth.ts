@@ -9,6 +9,7 @@ export const authRouter = router({
             openapi: {
                 method: 'GET',
                 path: '/auth/login',
+                tags: ['Auth'],
             },
         })
         .input(z.undefined())

@@ -33,7 +33,7 @@ export const apikeyProcedure = t.procedure.use(async ({ ctx, next }) => {
     const token = req.header('authorization')?.split('Bearer ')[1];
     const payload = token ? (jwt.verify(token, process.env.JWT_TOKEN_SECURE!) as JWTPayload) : null;
     if (!payload) throw new TRPCError({ code: 'UNAUTHORIZED' });
-    const session = await db.credentials.findFirst({ where: { key: payload.api_key } });
+    const session = await db.credential.findUnique({ where: { key: payload.api_key } });
     if (!session) throw new TRPCError({ code: 'UNAUTHORIZED' });
     return next({ ctx: { session, db, paid: false } });
 });
