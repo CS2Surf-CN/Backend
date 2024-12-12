@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { router, zoneProcedure } from '../server/trpc';
+import { procedure, router, zoneProcedure } from '../server/trpc';
 import * as zoneSchemas from '../schemas/zone';
 import * as zoneService from '../services/zone';
 
@@ -26,4 +26,15 @@ export const zoneRouter = router({
         .input(zoneSchemas.updateZoneArray)
         .output(z.any())
         .mutation(({ input }) => zoneService.update(input)),
+    pull: procedure
+        .meta({
+            openapi: {
+                method: 'GET',
+                path: '/zone/pull',
+                tags: ['Zone'],
+            },
+        })
+        .input(zoneSchemas.pullZone)
+        .output(z.any())
+        .query(({ input }) => zoneService.pull(input)),
 })

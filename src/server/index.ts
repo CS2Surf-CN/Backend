@@ -58,7 +58,7 @@ app.use(
                     throw error;
                 }
                 if (path) {
-                    if (error.code === 'UNAUTHORIZED') {
+                    if (error.code === 'UNAUTHORIZED' || error.code === 'BAD_REQUEST') {
                         return;
                     }
 

@@ -21,6 +21,11 @@ export const updateZone = z.object({
     limitspeed: z.number().optional(),
 });
 export const updateZoneArray = z.object({
-    data: updateZone.array()
+    data: updateZone.array(),
 })
 export type updateZoneInput = z.infer<typeof updateZoneArray>;
+
+export const pullZone = z.object({
+    map: z.string(),
+})
+export type pullZoneInput = z.infer<typeof pullZone>;
