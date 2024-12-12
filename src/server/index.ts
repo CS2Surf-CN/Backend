@@ -68,8 +68,8 @@ app.use(
                 // 不拦截 TRPCError ZodError，走createOpenApiExpressMiddleware默认处理
             },
             maxBodySize: undefined,
-        })
-    )
+        }),
+    ),
 );
 
 // express全局拦截函数：专门处理 MyTRPCError

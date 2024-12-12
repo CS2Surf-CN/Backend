@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Check formatting
+        run: pnpm run format:check
+
       - name: Build
         run: |
           pnpm run generate

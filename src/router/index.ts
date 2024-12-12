@@ -1,4 +1,4 @@
-import { router } from '../server/trpc'
+import { router } from '../server/trpc';
 import { authRouter } from './auth';
 import { zoneRouter } from './zone';
 

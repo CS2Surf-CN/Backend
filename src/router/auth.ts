@@ -40,4 +40,4 @@ export const authRouter = router({
         .input(z.undefined())
         .output(z.any())
         .query(({ ctx: { req } }) => authService.zone(req)),
-})
+});
