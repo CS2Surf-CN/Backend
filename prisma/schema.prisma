@@ -108,15 +108,17 @@ model Chat {
   @@map("chat")
 }
 
-model Maptiers {
-  map           String    @id @db.VarChar(128)
+model MapInfo {
+  id            Int       @id @default(autoincrement())
+  workshopid    BigInt
+  map           String    @db.VarChar(128)
   tier          Int       @default(0)
   limitPrespeed Boolean   @default(true)
   maxvelocity   Float     @default(0)
   created_at    DateTime? @default(now()) @db.Timestamp(3)
   updated_at    DateTime? @default(now()) @db.Timestamp(3)
 
-  @@map("maptiers")
+  @@map("mapinfo")
 }
 
 model Stagetimes {

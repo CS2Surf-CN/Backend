@@ -3,18 +3,15 @@ import { APIResponse, successResponse } from '../utils/response';
 import * as zoneSchemas from '../schemas/zone';
 import { db } from './db';
 
-export async function create(input: zoneSchemas.updateZoneInput): Promise<APIResponse> {
-    const res = await db.mapzones.createMany({ data: input.data });
-
-    if (!res) {
-        throw new TRPCError({ code: 'BAD_REQUEST' });
-    }
-
-    return successResponse('');
-}
-
 export async function update(input: zoneSchemas.updateZoneInput): Promise<APIResponse> {
     try {
+        const newEntries = input.data.filter((x) => x.id === undefined);
+        if (newEntries.length > 0) {
+            await db.mapzones.createMany({
+                data: newEntries,
+            });
+        }
+
         const updatePromises = input.data
             .filter((x) => x.id !== undefined)
             .map((x) => {
