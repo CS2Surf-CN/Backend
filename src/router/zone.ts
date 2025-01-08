@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { procedure, router, zoneProcedure } from '../server/trpc';
+import { procedure, router, updaterProcedure } from '../server/trpc';
 import * as zoneSchemas from '../schemas/zone';
 import * as zoneService from '../services/zone';
 
 export const zoneRouter = router({
-    update: zoneProcedure
+    update: updaterProcedure
         .meta({
             openapi: {
                 method: 'POST',

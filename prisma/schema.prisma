@@ -12,7 +12,7 @@ datasource db {
 enum APIKeyType {
   Invalid
   Public
-  ZoneHelper
+  Updater
 }
 
 model Credential {

@@ -1,10 +1,10 @@
 import { z } from 'zod';
-import { procedure, router } from '../server/trpc';
+import { procedure, router, updaterProcedure } from '../server/trpc';
 import * as mapSchemas from '../schemas/map';
 import * as mapService from '../services/map';
 
 export const mapRouter = router({
-    info_update: procedure
+    info_update: updaterProcedure
         .meta({
             openapi: {
                 method: 'POST',

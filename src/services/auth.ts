@@ -69,7 +69,7 @@ export async function status(req: Request): Promise<APIResponse> {
     return successResponse(token);
 }
 
-export async function zone(req: Request): Promise<APIResponse> {
+export async function updater(req: Request): Promise<APIResponse> {
     const apiKey = req.header('authorization')?.split('Bearer ')[1];
 
     if (!apiKey) {
@@ -78,7 +78,7 @@ export async function zone(req: Request): Promise<APIResponse> {
 
     const data = await db.credential.findUnique({
         where: {
-            type: APIKeyType.ZoneHelper,
+            type: APIKeyType.Updater,
             key: apiKey,
         },
     });

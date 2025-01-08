@@ -38,12 +38,12 @@ export const apikeyProcedure = t.procedure.use(async ({ ctx, next }) => {
     return next({ ctx: { session, db, paid: false } });
 });
 
-export const zoneProcedure = t.procedure.use(async ({ ctx, next }) => {
+export const updaterProcedure = t.procedure.use(async ({ ctx, next }) => {
     const { req } = ctx;
     const token = req.header('authorization')?.split('Bearer ')[1];
     const payload = token ? (jwt.verify(token, process.env.JWT_TOKEN_SECURE!) as JWTPayload) : null;
     if (!payload) throw new TRPCError({ code: 'UNAUTHORIZED' });
-    const session = await db.credential.findUnique({ where: { type: APIKeyType.ZoneHelper, key: payload.api_key } });
+    const session = await db.credential.findUnique({ where: { type: APIKeyType.Updater, key: payload.api_key } });
     if (!session) throw new TRPCError({ code: 'UNAUTHORIZED' });
     return next({ ctx: { session, db, paid: false } });
 });

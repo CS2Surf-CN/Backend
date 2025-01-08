@@ -28,16 +28,16 @@ export const authRouter = router({
         .input(z.undefined())
         .output(z.any())
         .query(({ ctx: { req } }) => authService.status(req)),
-    zone: procedure
+    updater: procedure
         .meta({
             openapi: {
                 method: 'GET',
-                path: '/auth/zone',
+                path: '/auth/updater',
                 tags: ['Auth'],
                 protect: true,
             },
         })
         .input(z.undefined())
         .output(z.any())
-        .query(({ ctx: { req } }) => authService.zone(req)),
+        .query(({ ctx: { req } }) => authService.updater(req)),
 });
