@@ -5,23 +5,14 @@ import { db } from './db';
 
 export async function update(input: zoneSchemas.updateZoneInput): Promise<APIResponse> {
     try {
-        const newEntries = input.data.filter((x) => x.id === undefined);
-        if (newEntries.length > 0) {
-            await db.mapzones.createMany({
-                data: newEntries,
+        if (!input.id) {
+            await db.mapzones.create({ data: input });
+        } else {
+            await db.mapzones.update({
+                where: { id: input.id },
+                data: input,
             });
         }
-
-        const updatePromises = input.data
-            .filter((x) => x.id !== undefined)
-            .map((x) => {
-                return db.mapzones.update({
-                    where: { id: x.id },
-                    data: x,
-                });
-            });
-
-        await Promise.all(updatePromises);
     } catch (error) {
         throw new TRPCError({ code: 'BAD_REQUEST', message: `${error}` });
     }

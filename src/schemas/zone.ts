@@ -20,10 +20,7 @@ export const updateZone = z.object({
     hookname: z.string().optional(),
     limitspeed: z.number().optional(),
 });
-export const updateZoneArray = z.object({
-    data: updateZone.array(),
-});
-export type updateZoneInput = z.infer<typeof updateZoneArray>;
+export type updateZoneInput = z.infer<typeof updateZone>;
 
 export const pullZone = z.object({
     map: z.string(),

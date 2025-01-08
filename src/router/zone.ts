@@ -12,7 +12,7 @@ export const zoneRouter = router({
                 tags: ['Zone'],
             },
         })
-        .input(zoneSchemas.updateZoneArray)
+        .input(zoneSchemas.updateZone)
         .output(z.any())
         .mutation(({ input }) => zoneService.update(input)),
     pull: procedure
