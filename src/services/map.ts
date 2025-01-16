@@ -34,3 +34,35 @@ export async function info_pull(input: mapSchemas.pullInfoInput): Promise<APIRes
 
     return successResponse(res);
 }
+
+export async function zone_update(input: mapSchemas.updateZoneInput): Promise<APIResponse> {
+    try {
+        if (!input.id) {
+            await db.mapzones.create({ data: input });
+        } else {
+            await db.mapzones.update({
+                where: { id: input.id },
+                data: input,
+            });
+        }
+    } catch (error) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: `${error}` });
+    }
+
+    return successResponse('');
+}
+
+export async function zone_pull(input: mapSchemas.pullZoneInput): Promise<APIResponse> {
+    const data = await db.mapzones.findMany({
+        where: {
+            map: input.map,
+        },
+    });
+    console.log(data[0]);
+
+    if (!data) {
+        throw new TRPCError({ code: 'BAD_REQUEST' });
+    }
+
+    return successResponse(data);
+}

@@ -8,7 +8,7 @@ export const mapRouter = router({
         .meta({
             openapi: {
                 method: 'POST',
-                path: '/map/info/update',
+                path: '/map/info',
                 tags: ['Map'],
             },
         })
@@ -19,11 +19,33 @@ export const mapRouter = router({
         .meta({
             openapi: {
                 method: 'GET',
-                path: '/map/info/pull',
+                path: '/map/info',
                 tags: ['Map'],
             },
         })
         .input(mapSchemas.pullInfo)
         .output(z.any())
         .query(({ input }) => mapService.info_pull(input)),
+    zone_update: updaterProcedure
+        .meta({
+            openapi: {
+                method: 'POST',
+                path: '/map/zone',
+                tags: ['Map'],
+            },
+        })
+        .input(mapSchemas.updateZone)
+        .output(z.any())
+        .mutation(({ input }) => mapService.zone_update(input)),
+    zone_pull: procedure
+        .meta({
+            openapi: {
+                method: 'GET',
+                path: '/map/zone',
+                tags: ['Map'],
+            },
+        })
+        .input(mapSchemas.pullZone)
+        .output(z.any())
+        .query(({ input }) => mapService.zone_pull(input)),
 });

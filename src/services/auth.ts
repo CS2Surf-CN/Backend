@@ -66,7 +66,7 @@ export async function status(req: Request): Promise<APIResponse> {
     }
 
     const token = jwt.sign({ api_key: apiKey }, process.env.JWT_TOKEN_SECURE!, { expiresIn: '30d' });
-    return successResponse(token);
+    return successResponse({ token });
 }
 
 export async function updater(req: Request): Promise<APIResponse> {
@@ -88,5 +88,5 @@ export async function updater(req: Request): Promise<APIResponse> {
     }
 
     const token = jwt.sign({ api_key: apiKey }, process.env.JWT_TOKEN_SECURE!, { expiresIn: '30d' });
-    return successResponse(token);
+    return successResponse({ token });
 }
