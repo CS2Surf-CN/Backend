@@ -47,7 +47,9 @@ model User {
 model Mapzones {
   id         Int       @id @default(autoincrement())
   map        String    @db.VarChar(128)
+  track      Int
   type       Int
+  value      Int
   mins_x     Float
   mins_y     Float
   mins_z     Float
@@ -60,12 +62,10 @@ model Mapzones {
   des_ang_x  Float?
   des_ang_y  Float?
   des_ang_z  Float?
-  track      Int       @default(0)
-  flags      Int       @default(0)
-  value      Int       @default(0)
-  hammerid   Int       @default(-1)
-  hookname   String    @default("NONE") @db.VarChar(128)
-  limitspeed Float     @default(350.0)
+  hammerid   Int?
+  hookname   String?
+  flags      Int?
+  limitspeed Float?
   created_at DateTime? @default(now()) @db.Timestamp(3)
   updated_at DateTime? @default(now()) @db.Timestamp(3)
 
