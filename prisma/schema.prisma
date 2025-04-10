@@ -54,9 +54,12 @@ model Mapzones {
   maxs_x     Float
   maxs_y     Float
   maxs_z     Float
-  des_x      Float     @default(0)
-  des_y      Float     @default(0)
-  des_z      Float     @default(0)
+  des_pos_x  Float
+  des_pos_y  Float
+  des_pos_z  Float
+  des_ang_x  Float?
+  des_ang_y  Float?
+  des_ang_z  Float?
   track      Int       @default(0)
   flags      Int       @default(0)
   value      Int       @default(0)
@@ -113,7 +116,7 @@ model MapInfo {
   workshopid    BigInt
   map           String    @db.VarChar(128)
   tier          Int       @default(0)
-  limitPrespeed Boolean   @default(true)
+  limit_prespeed Boolean   @default(true)
   maxvelocity   Float     @default(0)
   created_at    DateTime? @default(now()) @db.Timestamp(3)
   updated_at    DateTime? @default(now()) @db.Timestamp(3)

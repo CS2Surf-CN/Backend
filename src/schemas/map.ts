@@ -6,7 +6,7 @@ export const updateInfo = z.object({
     map: z.string(),
     tier: z.number().int(),
     maxvelocity: z.number(),
-    limitPrespeed: z.boolean(),
+    limit_prespeed: z.boolean(),
 });
 export type updateInfoInput = z.infer<typeof updateInfo>;
 
@@ -28,9 +28,12 @@ export const updateZone = z.object({
     maxs_x: z.number(),
     maxs_y: z.number(),
     maxs_z: z.number(),
-    des_x: z.number().optional(),
-    des_y: z.number().optional(),
-    des_z: z.number().optional(),
+    des_pos_x: z.number().optional(),
+    des_pos_y: z.number().optional(),
+    des_pos_z: z.number().optional(),
+    des_ang_x: z.number().optional(),
+    des_ang_y: z.number().optional(),
+    des_ang_z: z.number().optional(),
     flags: z.number().int().optional(),
     hammerid: z.number().int().optional(),
     hookname: z.string().optional(),
