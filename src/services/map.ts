@@ -52,6 +52,26 @@ export async function zone_update(input: mapSchemas.updateZoneInput): Promise<AP
     return successResponse('');
 }
 
+export async function zone_delete(input: mapSchemas.deleteZoneInput): Promise<APIResponse> {
+    try {
+        await db.mapzones.delete({ where: { id: input.id } });
+    } catch (error) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: `${error}` });
+    }
+
+    return successResponse('');
+}
+
+export async function zone_delete_all(input: mapSchemas.deleteAllZoneInput): Promise<APIResponse> {
+    try {
+        await db.mapzones.deleteMany({ where: { map: input.map } });
+    } catch (error) {
+        throw new TRPCError({ code: 'BAD_REQUEST', message: `${error}` });
+    }
+
+    return successResponse('');
+}
+
 export async function zone_pull(input: mapSchemas.pullZoneInput): Promise<APIResponse> {
     const data = await db.mapzones.findMany({
         where: {

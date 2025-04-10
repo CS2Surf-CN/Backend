@@ -37,6 +37,28 @@ export const mapRouter = router({
         .input(mapSchemas.updateZone)
         .output(z.any())
         .mutation(({ input }) => mapService.zone_update(input)),
+    zone_delete: updaterProcedure
+        .meta({
+            openapi: {
+                method: 'POST',
+                path: '/map/zone/delete',
+                tags: ['Map'],
+            },
+        })
+        .input(mapSchemas.deleteZone)
+        .output(z.any())
+        .mutation(({ input }) => mapService.zone_delete(input)),
+    zone_delete_all: updaterProcedure
+        .meta({
+            openapi: {
+                method: 'POST',
+                path: '/map/zone/delete/all',
+                tags: ['Map'],
+            },
+        })
+        .input(mapSchemas.deleteAllZone)
+        .output(z.any())
+        .mutation(({ input }) => mapService.zone_delete_all(input)),
     zone_pull: procedure
         .meta({
             openapi: {

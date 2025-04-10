@@ -41,6 +41,16 @@ export const updateZone = z.object({
 });
 export type updateZoneInput = z.infer<typeof updateZone>;
 
+export const deleteZone = z.object({
+    id: z.number().int(),
+});
+export type deleteZoneInput = z.infer<typeof deleteZone>;
+
+export const deleteAllZone = z.object({
+    map: z.string(),
+});
+export type deleteAllZoneInput = z.infer<typeof deleteAllZone>;
+
 export const pullZone = z.object({
     map: z.string(),
 });
