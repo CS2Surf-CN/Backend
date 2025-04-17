@@ -37,7 +37,7 @@ export const updateZone = z.object({
     flags: z.number().int().optional(),
     hammerid: z.number().int().optional(),
     hookname: z.string().optional(),
-    limitspeed: z.number().optional(),
+    limitspeed: z.number().int().optional(),
 });
 export type updateZoneInput = z.infer<typeof updateZone>;
 
