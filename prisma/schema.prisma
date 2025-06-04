@@ -62,7 +62,7 @@ model Mapzones {
   des_ang_x  Float?
   des_ang_y  Float?
   des_ang_z  Float?
-  hammerid   Int?
+  hammerid   String?
   hookname   String?
   flags      Int?
   limitspeed Int?

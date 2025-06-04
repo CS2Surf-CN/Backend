@@ -35,7 +35,7 @@ export const updateZone = z.object({
     des_ang_y: z.number().optional(),
     des_ang_z: z.number().optional(),
     flags: z.number().int().optional(),
-    hammerid: z.number().int().optional(),
+    hammerid: z.string().optional(),
     hookname: z.string().optional(),
     limitspeed: z.number().int().optional(),
 });
